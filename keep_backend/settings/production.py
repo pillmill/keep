@@ -1,6 +1,5 @@
 from settings import *
 from credentials import AWS, MAILGUN, RDS
-
 ALLOWED_HOSTS = [ '*' ]
 
 DEBUG = False
@@ -23,9 +22,12 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 AWS_ACCESS_KEY_ID       = AWS[ 'ACCESS_KEY_ID' ]
 AWS_SECRET_ACCESS_KEY   = AWS[ 'SECRET_KEY' ]
 
-AWS_STORAGE_BUCKET_NAME         = 'keep-demo-static'
-AWS_MEDIA_STORAGE_BUCKET_NAME   = 'keep-demo-media'
-AWS_TASK_STORAGE_BUCKET_NAME    = 'keep-demo-tasks'
+#AWS_STORAGE_BUCKET_NAME         = 'keep-demo-static'
+AWS_STORAGE_BUCKET_NAME         = 'dhlabs'#pm added
+#AWS_MEDIA_STORAGE_BUCKET_NAME   = 'keep-demo-media'
+AWS_MEDIA_STORAGE_BUCKET_NAME   = 'dhlabs'#pm
+#AWS_TASK_STORAGE_BUCKET_NAME    = 'keep-demo-tasks'
+AWS_TASK_STORAGE_BUCKET_NAME    = 'dhlabs'
 
 # Use Amazon Cloudfront
 AWS_S3_CUSTOM_DOMAIN    = 's3.amazonaws.com/%s' % ( AWS_STORAGE_BUCKET_NAME )
@@ -43,3 +45,8 @@ STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
 MAILGUN_ACCESS_KEY      = MAILGUN[ 'ACCESS_KEY' ]
 MAILGUN_SERVER_NAME     = MAILGUN[ 'SERVER_NAME' ]
+
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static/'),
+)
+

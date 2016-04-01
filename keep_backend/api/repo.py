@@ -220,7 +220,8 @@ class RepoResource( ModelResource ):
         response_data = { 'success': False }
         try:
             # Check if the user has enough permission to create a new
-            # repository.
+            # repos
+	    print "in post_list in api/... "
             bundle = self.build_bundle( request=request )
             if not self.authorized_create_list( None, bundle ):
                 return HttpUnauthorized()

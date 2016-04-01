@@ -14,8 +14,11 @@ framework.
 
 """
 import os
-
+import sys
+sys.path.append('/home/ubuntu/.virtualenvs/dhlab_backend3/keep/keep_backend')
+sys.path.append('/home/ubuntu/.virtualenvs/dhlab_backend3/keep/keep_backend/settings')
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings.production")
+#os.environ['DJANGO_SETTINGS_MODULE'] = 'keep_backend.settings'
 
 # This application object is used by any WSGI server configured to use this
 # file. This includes Django's development server, if the WSGI_APPLICATION

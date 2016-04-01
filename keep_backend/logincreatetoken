@@ -1,0 +1,5 @@
+from django.contrib.auth.models import User
+from twofactor.models import UserAuthToken
+UserAuthToken.objects.create(user=User.objects.get(username='phil'))
+
+
