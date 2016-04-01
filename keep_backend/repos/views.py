@@ -34,7 +34,7 @@ def insert_data_into_repo( request, repo_id ):
         Insert data from a CSV into a repo. This is relayed as a task to a
         Celery worker.
     '''
-    print "in insert_data_into_repo: going in"
+
     repo = Repository.objects.get( mongo_id=repo_id )
 
     # Place the task in the queue
@@ -93,8 +93,6 @@ def new_repo( request ):
     user_repos = Repository.objects.filter( user=request.user, org=None )
 
     repos = []
-    
-    print "creating new repo in new_repo", request.user
     for repo in user_repos:
         #I want a flat list of repo fields
         repo_info = {
@@ -116,14 +114,12 @@ def edit_repo( request, repo_id ):
         Takes user to Form Builder
     """
     repo = get_object_or_404( Repository, mongo_id=repo_id )
-    print "in edit_repo "
 
     # Check that this user has permission to edit this repo
     if not request.user.has_perm( 'delete_repository', repo ):
         return HttpResponse( 'Unauthorized', status=401 )
 
     if request.method == 'POST':
-        print " in edit POST "
         form = NewRepoForm( request.POST, request.FILES, user=request.user )
         repo.name = request.POST['name'].replace( ' ','_' )
         repo.description = request.POST['desc']
@@ -172,7 +168,7 @@ def delete_repo( request, repo_id ):
         Checks if the user is the original owner of the repository and removes
         the repository and the accompaning repo data.
     """
-    print " in delete_repo for: ", repo_id
+
     repo = get_object_or_404( Repository, mongo_id=repo_id )
 
     # Check that this user has permission to delete this repo
@@ -181,7 +177,7 @@ def delete_repo( request, repo_id ):
 
     # Delete the sucker
     repo.delete()
-    print "competing delete_repo "
+
     return HttpResponseRedirect( '/' )
 
 
@@ -272,7 +268,6 @@ def share_repo( request, repo_id ):
 
 @csrf_exempt
 def webform( request, username, repo_name ):
-    print "repo name: ", repo_name
     """
         Simply grab the survey data and send it on the webform. The webform
         will handle rendering and submission of the final data to the server.
@@ -323,7 +318,6 @@ def webform( request, username, repo_name ):
                 return HttpResponseRedirect( reverse( 'repo_visualize', kwargs=destination) )
 
             elif isinstance( account, User ):
-                print "in repos/views.py"
                 return HttpResponseRedirect(
                             reverse( 'user_dashboard',
                                      kwargs={ 'username': account.username } ) )

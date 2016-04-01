@@ -17,7 +17,6 @@ from repos.models import Repository
 
 
 def formlist( request, username ):
-    print "in open rosa"
     api_url = reverse( 'api_dispatch_list',
                        kwargs={'resource_name': 'repos',
                                'api_name': 'v1'} )

@@ -38,7 +38,6 @@ def create_repo_from_file( file, file_type, repo ):
 
     # Change the bucket we're checking
     if not settings.DEBUG and not settings.TESTING:
-	#print "in tasks to store"
         storage.bucket_name = settings.AWS_TASK_STORAGE_BUCKET_NAME
 
     if not storage.exists( file ):
